@@ -9,14 +9,13 @@ describe TransactionLog do
 
   describe 'upon intialization' do
     it 'checks that we have a transactions variable' do
-      expect(transaction_log.transactions).to eq([])
+      expect(transaction_log.log).to eq([])
     end
   end
 
   describe '#new_log' do
     it 'adds new transaction to the log' do
-      expect(transaction_log.new_log(10, 100)).to eq(transaction)
-      expect(transaction_log.transactions).to eq([transaction])
+      expect(transaction_log.new_log(10, 100)).to eq([transaction])
     end
   end
 

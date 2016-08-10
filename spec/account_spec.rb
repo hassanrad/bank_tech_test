@@ -40,9 +40,20 @@ describe Account do
       expect{account.statement}.to output("date || credit || debit || balance\n").to_stdout
     end
 
-    it 'displays an account statement with one debit transaction' do
+    it 'displays an account statement with one credit transaction' do
       account.deposit(10)
-      expect{account.statement}.to output("date || credit || debit || balance\nTime.now.strftime('%d/%m/%Y') || 10 || || 10\n").to_stdout
+      expect{account.statement}.to output("date || credit || debit || balance\n#{Time.now.strftime('%d/%m/%Y')} || 10.00 ||  || 10.00\n").to_stdout
+    end
+
+    it 'displays an account statement with one debit transaction' do
+      account.withdraw(10)
+      expect{account.statement}.to output("date || credit || debit || balance\n#{Time.now.strftime('%d/%m/%Y')} ||  || 10.00 || -10.00\n").to_stdout
+    end
+
+    it 'displays an account statement with a debit & credit transaction' do
+      account.deposit(10)
+      account.withdraw(10)
+      expect{account.statement}.to output("date || credit || debit || balance\n#{Time.now.strftime('%d/%m/%Y')} ||  || 10.00 || 0.00\n#{Time.now.strftime('%d/%m/%Y')} || 10.00 ||  || 10.00\n").to_stdout
     end
   end
 

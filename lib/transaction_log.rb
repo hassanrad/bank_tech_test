@@ -1,7 +1,8 @@
+require_relative 'transaction'
+
 class TransactionLog
 
   attr_reader :log
-  attr_reader :log_type
 
   def initialize(log_type)
     @log = []
@@ -15,11 +16,6 @@ class TransactionLog
   def new_log(amount, balance)
     new = @log_type.new(amount, balance)
     log << new
-    new
-  end
-
-  def transactions
-    log
   end
 
 end
